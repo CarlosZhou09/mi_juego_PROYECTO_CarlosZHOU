@@ -112,7 +112,10 @@ def crear_botones(idx):
         foto = ImageTk.PhotoImage(img)
         imagenes.append(foto)
         c.create_image(0, 0, anchor="nw", image=foto)
-    
+    else:
+        c.config(bg="#dddddd")
+        c.create_text(BTN_W // 2, BTN_H // 2, text=str(idx + 1),
+                      font=("Arial", 14), fill="#888888") #ESTO ERA AL PURO PRINCIPIO, QUE LO OCUPE PARA SABER SI ERA UN FALLO PORQUE NO ESTABA SIENDO CAPAZ DE VER LAS IMAGENES
 
     c.bind("<Button-1>", lambda e, i=idx: toggle(i))
     btn_frames.append(borde)
@@ -123,7 +126,7 @@ crear_botones(0)
 
 # ── Botón INICIAR ─────────────────────────────────────────────────────────────
 def iniciar():
-    # Cierra ventanas secundarias
+    # PARA CERRAR TODAS LAS VENTANAS ANTERIORES
     for v in ventanas:
         try:
             v.destroy()
@@ -133,9 +136,9 @@ def iniciar():
     import importlib
     import ventana_juego
     importlib.reload(ventana_juego)
-    ventana_juego.abrir(seleccion=selected, ventana_anterior=root)  # ← primero abrir
+    ventana_juego.abrir(seleccion=selected, ventana_anterior=root) #AQUI RECIBI MUCHA AYUDA DE AI, YA QUE QUERIA QUE LOS CODIGOS SE ENTRELAZARAN, EN VEZ DE SER UN SOLO CODIGO MUY GRANDE
 
-    root.destroy()                            # ← luego cerrar
+    root.destroy()                          
 
 tk.Button(
     root, text="INICIAR",
