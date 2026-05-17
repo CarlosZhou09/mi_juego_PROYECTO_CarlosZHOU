@@ -38,33 +38,42 @@ RUTAS = [
 ]
 # ─────────────────────────────────────────────────────────────────────────────
 
-# ── Botón circular de información ─────────────────────────────────────────────
+# ── Botón de información ─────────────────────────────────────────────
 def abrir_info():
     v = tk.Toplevel(root)
     ventanas.append(v)
     v.title("Información")
-    v.geometry("400x300")
+    v.geometry("400x500")
     v.resizable(False, False)
     v.configure(bg="white")
 
     # ── Texto de la ventana emergente — escribe aquí tu contenido ─────────
     texto = (
-        "Escribe aquí el texto que quieres\n"
-        "que aparezca en esta ventana de información."
+        "Este juego trata de una manera simple de pokemon, \n"
+        "donde elijes a tus primeros 3 acompaniantes y vas de \n"
+        "ciudad en ciudad combatiendo otras personas con otros \n"
+        "pokemones, que al vencer, podras obtener para ti.\n"
+        "\n"
+        "PERO CUIDADO\n"
+        "\n"
+        "porque asi como puedes robar los pokemones de tus \n"
+        "contrincantes, ellos podran agarrar los tuyos. \n"
+        "\n"
+        "Y QUE PASA SI PIERDES TODOS TUS POKEMONES???\n"
+        "\n"
+        "nada... solo pierdes para siempre\n"
+        "MUCHA SUERTEEEEEEE!!!"
     )
     # ──────────────────────────────────────────────────────────────────────
 
     tk.Label(v, text=texto, bg="white", justify="center",
              wraplength=340, font=("Arial", 12)).pack(expand=True)
-    tk.Button(v, text="✕", command=v.destroy,
-              bg="#dddddd", relief="flat", font=("Arial", 10),
-              padx=8, pady=4).pack(pady=(0, 16))
 
 ci = tk.Canvas(root, width=40, height=40, bg="white", highlightthickness=0, cursor="hand2")
 ci.place(x=16, y=16)
 ci.create_oval(2, 2, 38, 38, fill="#cccccc", outline="#aaaaaa")
 ci.create_text(20, 20, text="!", font=("Arial", 16, "bold"), fill="white")
-ci.bind("<Button-1>", lambda e: abrir_info())
+ci.bind("<Button-1>", lambda e: abrir_info()) #BOTON DE INFO
 
 # ── Campo de nombre ────────────────────────────────────────────────────────────
 tk.Label(root, text="Tu nombre:", bg="white", font=("Arial", 13)).pack(pady=(60, 6))
@@ -81,13 +90,13 @@ def toggle(idx):
         selected.append(idx)
     actualizar_bordes(0)
 
-def actualizar_bordes(i):           # recursiva
+def actualizar_bordes(i):     
     if i >= len(btn_frames):
         return
     btn_frames[i].config(bg="#e2c96a" if i in selected else "#aaaaaa")
     actualizar_bordes(i + 1)
 
-def crear_botones(idx):             # recursiva
+def crear_botones(idx):        
     if idx >= 15:
         return
 
@@ -103,10 +112,7 @@ def crear_botones(idx):             # recursiva
         foto = ImageTk.PhotoImage(img)
         imagenes.append(foto)
         c.create_image(0, 0, anchor="nw", image=foto)
-    else:
-        c.config(bg="#dddddd")
-        c.create_text(BTN_W // 2, BTN_H // 2, text=str(idx + 1),
-                      font=("Arial", 14), fill="#888888")
+    
 
     c.bind("<Button-1>", lambda e, i=idx: toggle(i))
     btn_frames.append(borde)
