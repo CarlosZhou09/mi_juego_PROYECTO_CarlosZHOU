@@ -77,7 +77,8 @@ ci.bind("<Button-1>", lambda e: abrir_info()) #BOTON DE INFO
 
 # ── Campo de nombre ────────────────────────────────────────────────────────────
 tk.Label(root, text="Tu nombre:", bg="white", font=("Arial", 13)).pack(pady=(60, 6))
-tk.Entry(root, width=30, font=("Arial", 12)).pack()
+name_entry = tk.Entry(root, width=30, font=("Arial", 12))
+name_entry.pack()
 
 # ── Cuadrícula de botones ──────────────────────────────────────────────────────
 grid = tk.Frame(root, bg="white")
@@ -126,17 +127,20 @@ crear_botones(0)
 
 # ── Botón INICIAR ─────────────────────────────────────────────────────────────
 def iniciar():
-    # PARA CERRAR TODAS LAS VENTANAS ANTERIORES
     for v in ventanas:
         try:
             v.destroy()
         except Exception:
             pass
 
+    nombre = name_entry.get()
+
     import importlib
     import ventana_juego
     importlib.reload(ventana_juego)
-    ventana_juego.abrir(seleccion=selected, ventana_anterior=root) #AQUI RECIBI MUCHA AYUDA DE AI, YA QUE QUERIA QUE LOS CODIGOS SE ENTRELAZARAN, EN VEZ DE SER UN SOLO CODIGO MUY GRANDE
+
+    root.destroy()                          # ← primero cerrar
+    ventana_juego.abrir(seleccion=selected, nombre=nombre)  # ← luego abrir #AQUI RECIBI MUCHA AYUDA DE AI, YA QUE QUERIA QUE LOS CODIGOS SE ENTRELAZARAN, EN VEZ DE SER UN SOLO CODIGO MUY GRANDE
 
     root.destroy()                          
 

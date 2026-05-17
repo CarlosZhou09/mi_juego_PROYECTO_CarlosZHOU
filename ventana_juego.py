@@ -6,17 +6,17 @@ BTN_H = 200
 
 # ── Imágenes de los 3 botones ─────────────────────────────────────────────────
 RUTAS = [
-    "ash.png",   # botón 1
+    "ash.png",      # botón 1
     "serena.png",   # botón 2
-    "red.png",   # botón 3
+    "red.png",      # botón 3
 ]
 # ─────────────────────────────────────────────────────────────────────────────
 
-def abrir(seleccion=None, ventana_anterior=None):
+def abrir(seleccion=None, ventana_anterior=None, nombre=""):
     if ventana_anterior:
         ventana_anterior.destroy()
 
-    selected   = [None]  # guarda el índice seleccionado (solo 1)
+    selected   = [None]
     btn_frames = []
     imagenes   = []
 
@@ -61,9 +61,14 @@ def abrir(seleccion=None, ventana_anterior=None):
         btn_frames.append(borde)
         crear_botones(idx + 1)
 
-    # ── Cuadrícula horizontal de botones ──────────────────────────────────────
+    # ── Label de bienvenida ───────────────────────────────────────────────────
+    tk.Label(root, text=f"BIENVENIDO {nombre.upper()}",
+             bg="white", font=("Arial", 18, "bold")).pack(pady=(60, 30))
+    # ─────────────────────────────────────────────────────────────────────────
+
+    # ── Botones horizontales ──────────────────────────────────────────────────
     grid = tk.Frame(root, bg="white")
-    grid.pack(expand=True)
+    grid.pack()
     crear_botones(0)
 
     root.mainloop()
